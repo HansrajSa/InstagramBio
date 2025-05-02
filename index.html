@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content=
+  "width=device-width, initial-scale=1.0">
+  <title>InstaBio Generator</title>
+  <link href=
+  "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+  rel="stylesheet">
+  <link rel="stylesheet" href=
+  "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+
+  <style>
+        .gradient-bg {
+            background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcb045);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+        @keyframes gradient {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+        .font-preview {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .font-preview:hover {
+            transform: scale(1.05);
+        }
+        .emoji-btn {
+            transition: all 0.2s ease;
+        }
+        .emoji-btn:hover {
+            transform: scale(1.2);
+        }
+        .emoji-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 8px;
+        }
+        .symbol-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 8px;
+        }
+        .tab {
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #833ab4, #fd1d1d);
+            border-radius: 2px;
+        }
+        #bioText {
+            min-height: 100px;
+        }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="gradient-bg py-6">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-bold text-white text-center">
+      InstaBio Generator</h1>
+      <p class="text-white text-center mt-2">Create stylish
+      Instagram bios that stand out</p>
+    </div>
+  </div>
+  <div class="container mx-auto px-4 py-8">
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+      <div class="flex flex-col md:flex-row gap-8">
+        <!-- Left side: Input and tools -->
+        <div class="w-full md:w-3/5">
+          <div class="mb-4">
+            <label for="bioText" class=
+            "block text-sm font-medium text-gray-700 mb-2">Your Bio
+            Text</label> 
+            <textarea id="bioText" class=
+            "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            placeholder=
+            "Type your Instagram bio here..."></textarea>
+            <div class=
+            "flex justify-between text-sm text-gray-500 mt-2">
+              <span id="charCount">0/150 characters</span>
+              <button id="clearBtn" class=
+              "text-red-500 hover:text-red-700">Clear</button>
+            </div>
+          </div>
+          <div class="mb-6">
+            <div class="flex border-b border-gray-200">
+              <div class="tab active px-4 py-2 font-medium"
+              data-tab="fonts">
+                Fonts
+              </div>
+              <div class="tab px-4 py-2 font-medium" data-tab=
+              "emojis">
+                Emojis
+              </div>
+              <div class="tab px-4 py-2 font-medium" data-tab=
+              "symbols">
+                Symbols
+              </div>
+              <div class="tab px-4 py-2 font-medium" data-tab=
+              "templates">
+                Templates
+              </div>
+            </div>
+            <div class="tab-content py-4" id="fonts-tab">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-font="fancy1">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Fancy
+                  Script</span> <span class="block">𝓗𝓮𝓵𝓵𝓸
+                  𝓦𝓸𝓻𝓵𝓭</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-font="bold">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Bold</span>
+                  <span class="block">𝗛𝗲𝗹𝗹𝗼 𝗪𝗼𝗿𝗹𝗱</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-font="italic">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Italic</span>
+                  <span class="block">𝘏𝘦𝘭𝘭𝘰 𝘞𝘰𝘳𝘭𝘥</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-font="monospace">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Monospace</span>
+                  <span class="block">𝙷𝚎𝚕𝚕𝚘 𝚆𝚘𝚛𝚕𝚍</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-font="double">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Double-struck</span>
+                  <span class="block">ℍ𝕖𝕝𝕝𝕠 𝕎𝕠𝕣𝕝𝕕</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-font="small">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Small
+                  Caps</span> <span class="block">Hᴇʟʟᴏ
+                  Wᴏʀʟᴅ</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-font="bubble">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Bubble</span>
+                  <span class="block">Ⓗⓔⓛⓛⓞ Ⓦⓞⓡⓛⓓ</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-font="inverted">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Inverted</span>
+                  <span class="block">H̷e̷l̷l̷o̷ W̷o̷r̷l̷d̷</span>
+                </div>
+              </div>
+            </div>
+            <div class="tab-content py-4 hidden" id="emojis-tab">
+              <div class="mb-4">
+                <input type="text" id="emojiSearch" class=
+                "w-full px-4 py-2 border border-gray-300 rounded-lg"
+                placeholder="Search emojis...">
+              </div>
+              <div class="emoji-grid" id="emojiContainer">
+                <!-- Emoji sections -->
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="😊">
+                  😊
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🥰">
+                  🥰
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="😂">
+                  😂
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="❤️">
+                  ❤️
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="✨">
+                  ✨
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🔥">
+                  🔥
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="💯">
+                  💯
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🤩">
+                  🤩
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🙌">
+                  🙌
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="👑">
+                  👑
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="💪">
+                  💪
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🌟">
+                  🌟
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="💫">
+                  💫
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🎯">
+                  🎯
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🌈">
+                  🌈
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🌸">
+                  🌸
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🌊">
+                  🌊
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🍀">
+                  🍀
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🌱">
+                  🌱
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🦋">
+                  🦋
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="⚡">
+                  ⚡
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🧠">
+                  🧠
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="📸">
+                  📸
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="📱">
+                  📱
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🎬">
+                  🎬
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="💭">
+                  💭
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="💬">
+                  💬
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="✈️">
+                  ✈️
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="📍">
+                  📍
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🎵">
+                  🎵
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🎨">
+                  🎨
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="🏆">
+                  🏆
+                </div>
+              </div>
+            </div>
+            <div class="tab-content py-4 hidden" id="symbols-tab">
+              <div class="symbol-grid">
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="•">
+                  •
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="★">
+                  ★
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="☆">
+                  ☆
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="♡">
+                  ♡
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="♥">
+                  ♥
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="❀">
+                  ❀
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="✿">
+                  ✿
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="➤">
+                  ➤
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="➳">
+                  ➳
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="↠">
+                  ↠
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="⚡">
+                  ⚡
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="♪">
+                  ♪
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="♛">
+                  ♛
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="⋆">
+                  ⋆
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="✓">
+                  ✓
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="✧">
+                  ✧
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="❥">
+                  ❥
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="❣">
+                  ❣
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="❂">
+                  ❂
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="✦">
+                  ✦
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="✰">
+                  ✰
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="⋆">
+                  ⋆
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="❦">
+                  ❦
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="✹">
+                  ✹
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="❁">
+                  ❁
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="◈">
+                  ◈
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="◆">
+                  ◆
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="♢">
+                  ♢
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="╳">
+                  ╳
+                </div>
+                <div class=
+                "emoji-btn p-2 text-center text-xl hover:bg-gray-100 rounded"
+                data-emoji="✧">
+                  ✧
+                </div>
+              </div>
+            </div>
+            <div class="tab-content py-4 hidden" id=
+            "templates-tab">
+              <div class="grid grid-cols-1 gap-3">
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-template=
+                "✨ Digital Creator | Travel Enthusiast 📸 | ✈️ Exploring the world one click at a time">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Travel &
+                  Photography</span> <span class="block">✨ Digital
+                  Creator | Travel Enthusiast 📸 | ✈️
+                  Exploring...</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-template=
+                "🌱 Wellness Coach | Helping you find balance ✨ | Nutrition • Fitness • Mindfulness | DM for collabs 💌">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Wellness &
+                  Fitness</span> <span class="block">🌱 Wellness
+                  Coach | Helping you find balance ✨ |
+                  Nutrition...</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-template=
+                "💼 Entrepreneur | 📊 Business Coach | Turning ideas into reality ✨ | Join my free workshop 👇">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Business &
+                  Entrepreneur</span> <span class="block">💼
+                  Entrepreneur | 📊 Business Coach | Turning ideas
+                  into...</span>
+                </div>
+                <div class=
+                "font-preview p-3 bg-gray-50 rounded-lg hover:bg-gray-100"
+                data-template=
+                "🎬 Content Creator | 🎨 Artist | Taking you behind the scenes ✨ | New video every Friday 🎥">
+                  <span class=
+                  "block text-sm text-gray-500 mb-1">Creator &
+                  Artist</span> <span class="block">🎬 Content
+                  Creator | 🎨 Artist | Taking you behind
+                  the...</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- Right side: Preview and copy -->
+        <div class="w-full md:w-2/5">
+          <div class="mb-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-3">
+            Preview</h2>
+            <div class=
+            "border border-gray-300 rounded-lg p-6 bg-white">
+              <div class="flex items-center mb-4">
+                <div class=
+                "w-12 h-12 bg-gradient-to-tr from-purple-400 to-pink-500 rounded-full">
+                </div>
+                <div class="ml-3">
+                  <div class="font-semibold">
+                    your_username
+                  </div>
+                  <div class="text-sm text-gray-500">
+                    Your Name
+                  </div>
+                </div>
+              </div>
+              <div id="bioPreview" class=
+              "text-gray-800 whitespace-pre-line break-words">
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <button id="copyBtn" class=
+            "flex-1 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white py-3 px-4 rounded-lg font-medium flex items-center justify-center transition duration-300">
+            Copy to Clipboard</button> <button id="randomizeBtn"
+            class=
+            "bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 px-4 rounded-lg font-medium transition duration-300">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-white rounded-lg shadow-lg p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Tips for
+      Great Instagram Bios</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-medium text-gray-800 mb-2">Instagram Bio
+          Best Practices</h3>
+          <ul class=
+          "list-disc list-inside text-gray-600 space-y-1">
+            <li>Keep it concise - 150 character limit</li>
+            <li>Include a call-to-action</li>
+            <li>Use line breaks for easier reading</li>
+            <li>Add relevant hashtags and emojis</li>
+            <li>Include your website or key link</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-medium text-gray-800 mb-2">Elements of a
+          Perfect Bio</h3>
+          <ul class=
+          "list-disc list-inside text-gray-600 space-y-1">
+            <li>Your name and what you do</li>
+            <li>Your personality/brand vibe</li>
+            <li>Your interests or niche</li>
+            <li>Contact information</li>
+            <li>A unique hook to grab attention</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="bg-gray-800 text-white py-6 mt-8">
+    <div class="container mx-auto px-4 text-center">
+      <p>InstaBio Generator | Create perfect Instagram bios with
+      style</p>
+      <p class="text-gray-400 text-sm mt-2">Made with ❤️ for
+      Instagram creators</p>
+    </div>
+  </footer>
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const bioText = document.getElementById('bioText');
+            const bioPreview = document.getElementById('bioPreview');
+            const charCount = document.getElementById('charCount');
+            const copyBtn = document.getElementById('copyBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const randomizeBtn = document.getElementById('randomizeBtn');
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const fontPreviews = document.querySelectorAll('.font-preview');
+            const emojiButtons = document.querySelectorAll('.emoji-btn');
+            const emojiSearch = document.getElementById('emojiSearch');
+            
+            // Font mappings
+            const fontMappings = {
+                fancy1: {
+                    'a': '𝓪', 'b': '𝓫', 'c': '𝓬', 'd': '𝓭', 'e': '𝓮', 'f': '𝓯', 'g': '𝓰', 'h': '𝓱', 'i': '𝓲',
+                    'j': '𝓳', 'k': '𝓴', 'l': '𝓵', 'm': '𝓶', 'n': '𝓷', 'o': '𝓸', 'p': '𝓹', 'q': '𝓺', 'r': '𝓻',
+                    's': '𝓼', 't': '𝓽', 'u': '𝓾', 'v': '𝓿', 'w': '𝔀', 'x': '𝔁', 'y': '𝔂', 'z': '𝔃',
+                    'A': '𝓐', 'B': '𝓑', 'C': '𝓒', 'D': '𝓓', 'E': '𝓔', 'F': '𝓕', 'G': '𝓖', 'H': '𝓗', 'I': '𝓘',
+                    'J': '𝓙', 'K': '𝓚', 'L': '𝓛', 'M': '𝓜', 'N': '𝓝', 'O': '𝓞', 'P': '𝓟', 'Q': '𝓠', 'R': '𝓡',
+                    'S': '𝓢', 'T': '𝓣', 'U': '𝓤', 'V': '𝓥', 'W': '𝓦', 'X': '𝓧', 'Y': '𝓨', 'Z': '𝓩'
+                },
+                bold: {
+                    'a': '𝗮', 'b': '𝗯', 'c': '𝗰', 'd': '𝗱', 'e': '𝗲', 'f': '𝗳', 'g': '𝗴', 'h': '𝗵', 'i': '𝗶',
+                    'j': '𝗷', 'k': '𝗸', 'l': '𝗹', 'm': '𝗺', 'n': '𝗻', 'o': '𝗼', 'p': '𝗽', 'q': '𝗾', 'r': '𝗿',
+                    's': '𝘀', 't': '𝘁', 'u': '𝘂', 'v': '𝘃', 'w': '𝘄', 'x': '𝘅', 'y': '𝘆', 'z': '𝘇',
+                    'A': '𝗔', 'B': '𝗕', 'C': '𝗖', 'D': '𝗗', 'E': '𝗘', 'F': '𝗙', 'G': '𝗚', 'H': '𝗛', 'I': '𝗜',
+                    'J': '𝗝', 'K': '𝗞', 'L': '𝗟', 'M': '𝗠', 'N': '𝗡', 'O': '𝗢', 'P': '𝗣', 'Q': '𝗤', 'R': '𝗥',
+                    'S': '𝗦', 'T': '𝗧', 'U': '𝗨', 'V': '𝗩', 'W': '𝗪', 'X': '𝗫', 'Y': '𝗬', 'Z': '𝗭'
+                },
+                italic: {
+                    'a': '𝘢', 'b': '𝘣', 'c': '𝘤', 'd': '𝘥', 'e': '𝘦', 'f': '𝘧', 'g': '𝘨', 'h': '𝘩', 'i': '𝘪',
+                    'j': '𝘫', 'k': '𝘬', 'l': '𝘭', 'm': '𝘮', 'n': '𝘯', 'o': '𝘰', 'p': '𝘱', 'q': '𝘲', 'r': '𝘳',
+                    's': '𝘴', 't': '𝘵', 'u': '𝘶', 'v': '𝘷', 'w': '𝘸', 'x': '𝘹', 'y': '𝘺', 'z': '𝘻',
+                    'A': '𝘈', 'B': '𝘉', 'C': '𝘊', 'D': '𝘋', 'E': '𝘌', 'F': '𝘍', 'G': '𝘎', 'H': '𝘏', 'I': '𝘐',
+                    'J': '𝘑', 'K': '𝘒', 'L': '𝘓', 'M': '𝘔', 'N': '𝘕', 'O': '𝘖', 'P': '𝘗', 'Q': '𝘘', 'R': '𝘙',
+                    'S': '𝘚', 'T': '𝘛', 'U': '𝘜', 'V': '𝘝', 'W': '𝘞', 'X': '𝘟', 'Y': '𝘠', 'Z': '𝘡'
+                },
+                monospace: {
+                    'a': '𝚊', 'b': '𝚋', 'c': '𝚌', 'd': '𝚍', 'e': '𝚎', 'f': '𝚏', 'g': '𝚐', 'h': '𝚑', 'i': '𝚒',
+                    'j': '𝚓', 'k': '𝚔', 'l': '𝚕', 'm': '𝚖', 'n': '𝚗', 'o': '𝚘', 'p': '𝚙', 'q': '𝚚', 'r': '𝚛',
+                    's': '𝚜', 't': '𝚝', 'u': '𝚞', 'v': '𝚟', 'w': '𝚠', 'x': '𝚡', 'y': '𝚢', 'z': '𝚣',
+                    'A': '𝙰', 'B': '𝙱', 'C': '𝙲', 'D': '𝙳', 'E': '𝙴', 'F': '𝙵', 'G': '𝙶', 'H': '𝙷', 'I': '𝙸',
+                    'J': '𝙹', 'K': '𝙺', 'L': '𝙻', 'M': '𝙼', 'N': '𝙽', 'O': '𝙾', 'P': '𝙿', 'Q': '𝚀', 'R': '𝚁',
+                    'S': '𝚂', 'T': '𝚃', 'U': '𝚄', 'V': '𝚅', 'W': '𝚆', 'X': '𝚇', 'Y': '𝚈', 'Z': '𝚉'
+                },
+                double: {
+                    'a': '𝕒', 'b': '𝕓', 'c': '𝕔', 'd': '𝕕', 'e': '𝕖', 'f': '𝕗', 'g': '𝕘', 'h': '𝕙', 'i': '𝕚',
+                    'j': '𝕛', 'k': '𝕜', 'l': '𝕝', 'm': '𝕞', 'n': '𝕟', 'o': '𝕠', 'p': '𝕡', 'q': '𝕢', 'r': '𝕣',
+                    's': '𝕤', 't': '𝕥', 'u': '𝕦', 'v': '𝕧', 'w': '𝕨', 'x': '𝕩', 'y': '𝕪', 'z': '𝕫',
+                    'A': '𝔸', 'B': '𝔹', 'C': 'ℂ', 'D': '𝔻', 'E': '𝔼', 'F': '𝔽', 'G': '𝔾', 'H': 'ℍ', 'I': '𝕀',
+                    'J': '𝕁', 'K': '𝕂', 'L': '𝕃', 'M': '𝕄', 'N': 'ℕ', 'O': '𝕆', 'P': 'ℙ', 'Q': 'ℚ', 'R': 'ℝ',
+                    'S': '𝕊', 'T': '𝕋', 'U': '𝕌', 'V': '𝕍', 'W': '𝕎', 'X': '𝕏', 'Y': '𝕐', 'Z': 'ℤ'
+                },
+                small: {
+                    'a': 'ᴀ', 'b': 'ʙ', 'c': 'ᴄ', 'd': 'ᴅ', 'e': 'ᴇ', 'f': 'ғ', 'g': 'ɢ', 'h': 'ʜ', 'i': 'ɪ',
+                    'j': 'ᴊ', 'k': 'ᴋ', 'l': 'ʟ', 'm': 'ᴍ', 'n': 'ɴ', 'o': 'ᴏ', 'p': 'ᴘ', 'q': 'ǫ', 'r': 'ʀ',
+                    's': 's', 't': 'ᴛ', 'u': 'ᴜ', 'v': 'ᴠ', 'w': 'ᴡ', 'x': 'x', 'y': 'ʏ', 'z': 'ᴢ',
+                    'A': 'A', 'B': 'B', 'C': 'C', 'D': 'D', 'E': 'E', 'F': 'F', 'G': 'G', 'H': 'H', 'I': 'I',
+                    'J': 'J', 'K': 'K', 'L': 'L', 'M': 'M', 'N': 'N', 'O': 'O', 'P': 'P', 'Q': 'Q', 'R': 'R',
+                    'S': 'S', 'T': 'T', 'U': 'U', 'V': 'V', 'W': 'W', 'X': 'X', 'Y': 'Y', 'Z': 'Z'
+                },
+                bubble: {
+                    'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ', 'e': 'ⓔ', 'f': 'ⓕ', 'g': 'ⓖ', 'h': 'ⓗ', 'i': 'ⓘ',
+                    'j': 'ⓙ', 'k': 'ⓚ', 'l': 'ⓛ', 'm': 'ⓜ', 'n': 'ⓝ', 'o': 'ⓞ', 'p': 'ⓟ', 'q': 'ⓠ', 'r': 'ⓡ',
+                    's': 'ⓢ', 't': 'ⓣ', 'u': 'ⓤ', 'v': 'ⓥ', 'w': 'ⓦ', 'x': 'ⓧ', 'y': 'ⓨ', 'z': 'ⓩ',
+                    'A': 'Ⓐ', 'B': 'Ⓑ', 'C': 'Ⓒ', 'D': 'Ⓓ', 'E': 'Ⓔ', 'F': 'Ⓕ', 'G': 'Ⓖ', 'H': 'Ⓗ', 'I': 'Ⓘ',
+                    'J': 'Ⓙ', 'K': 'Ⓚ', 'L': 'Ⓛ', 'M': 'Ⓜ', 'N': 'Ⓝ', 'O': 'Ⓞ', 'P': 'Ⓟ', 'Q': 'Ⓠ', 'R': 'Ⓡ',
+                    'S': 'Ⓢ', 'T': 'Ⓣ', 'U': 'Ⓤ', 'V': 'Ⓥ', 'W': 'Ⓦ', 'X': 'Ⓧ', 'Y': 'Ⓨ', 'Z': 'Ⓩ'
+                },
+                inverted: {
+                    'a': 'a̷', 'b': 'b̷', 'c': 'c̷', 'd': 'd̷', 'e': 'e̷', 'f': 'f̷', 'g': 'g̷', 'h': 'h̷', 'i': 'i̷',
+                    'j': 'j̷', 'k': 'k̷', 'l': 'l̷', 'm': 'm̷', 'n': 'n̷', 'o': 'o̷', 'p': 'p̷', 'q': 'q̷', 'r': 'r̷',
+                    's': 's̷', 't': 't̷', 'u': 'u̷', 'v': 'v̷', 'w': 'w̷', 'x': 'x̷', 'y': 'y̷', 'z': 'z̷',
+                    'A': 'A̷', 'B': 'B̷', 'C': 'C̷', 'D': 'D̷', 'E': 'E̷', 'F': 'F̷', 'G': 'G̷', 'H': 'H̷', 'I': 'I̷',
+                    'J': 'J̷', 'K': 'K̷', 'L': 'L̷', 'M': 'M̷', 'N': 'N̷', 'O': 'O̷', 'P': 'P̷', 'Q': 'Q̷', 'R': 'R̷',
+                    'S': 'S̷', 'T': 'T̷', 'U': 'U̷', 'V': 'V̷', 'W': 'W̷', 'X': 'X̷', 'Y': 'Y̷', 'Z': 'Z̷'
+                }
+            };
+
+            // Template examples
+            const bioTemplates = [
+                "✨ Digital Creator | Travel Enthusiast 📸 | ✈️ Exploring the world one click at a time",
+                "🌱 Wellness Coach | Helping you find balance ✨ | Nutrition • Fitness • Mindfulness | DM for collabs 💌",
+                "💼 Entrepreneur | 📊 Business Coach | Turning ideas into reality ✨ | Join my free workshop 👇",
+                "🎬 Content Creator | 🎨 Artist | Taking you behind the scenes ✨ | New video every Friday 🎥"
+            ];
+
+            // Function to convert text to a specific font style
+            function convertToFont(text, fontType) {
+                let result = '';
+                for (let i = 0; i < text.length; i++) {
+                    const char = text[i];
+                    result += fontMappings[fontType][char] || char;
+                }
+                return result;
+            }
+
+            // Update preview and character count
+            function updatePreview() {
+                const text = bioText.value;
+                bioPreview.textContent = text;
+                const count = text.length;
+                charCount.textContent = `${count}/150 characters`;
+                if (count > 150) {
+                    charCount.classList.add('text-red-600');
+                } else {
+                    charCount.classList.remove('text-red-600');
+                }
+            }
+
+            // Initialize
+            updatePreview();
+
+            // Event listeners
+            bioText.addEventListener('input', updatePreview);
+
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    const tabId = tab.dataset.tab;
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+                });
+            });
+
+            // Font style application
+            fontPreviews.forEach(preview => {
+                preview.addEventListener('click', () => {
+                    const selectedText = getSelectedText(bioText);
+                    if (preview.dataset.font) {
+                        // Font style
+                        if (selectedText) {
+                            // Apply font to selected text only
+                            const convertedText = convertToFont(selectedText, preview.dataset.font);
+                            replaceSelectedText(bioText, convertedText);
+                        } else {
+                            // Apply font to all text
+                            const convertedText = convertToFont(bioText.value, preview.dataset.font);
+                            bioText.value = convertedText;
+                        }
+                    } else if (preview.dataset.template) {
+                        // Bio template
+                        bioText.value = preview.dataset.template;
+                    }
+                    
+                    updatePreview();
+                });
+            });
+
+            // Emoji buttons
+            emojiButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const emoji = btn.dataset.emoji;
+                    insertAtCursor(bioText, emoji);
+                    updatePreview();
+                });
+            });
+
+            // Copy to clipboard
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(bioText.value).then(() => {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check mr-2"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                    }, 2000);
+                });
+            });
+
+            // Clear button
+            clearBtn.addEventListener('click', () => {
+                bioText.value = '';
+                updatePreview();
+            });
+
+            // Randomize button
+            randomizeBtn.addEventListener('click', () => {
+                const randomTemplate = bioTemplates[Math.floor(Math.random() * bioTemplates.length)];
+                bioText.value = randomTemplate;
+                updatePreview();
+            });
+
+            // Emoji search functionality
+            emojiSearch.addEventListener('input', () => {
+                const searchTerm = emojiSearch.value.toLowerCase();
+                const emojiContainer = document.getElementById('emojiContainer');
+                const emojiButtons = emojiContainer.querySelectorAll('.emoji-btn');
+                
+                emojiButtons.forEach(btn => {
+                    const emoji = btn.dataset.emoji;
+                    // This is a simple search. In a real app, you'd have emoji names/keywords to search against
+                    if (!searchTerm || emoji.includes(searchTerm)) {
+                        btn.style.display = 'block';
+                    } else {
+                        btn.style.display = 'none';
+                    }
+                });
+            });
+
+            // Helper functions
+            function getSelectedText(input) {
+                const start = input.selectionStart;
+                const end = input.selectionEnd;
+                return input.value.substring(start, end);
+            }
+
+            function replaceSelectedText(input, replacementText) {
+                const start = input.selectionStart;
+                const end = input.selectionEnd;
+                input.value = input.value.substring(0, start) + replacementText + input.value.substring(end);
+                input.selectionStart = start;
+                input.selectionEnd = start + replacementText.length;
+                input.focus();
+            }
+
+            function insertAtCursor(input, textToInsert) {
+                const start = input.selectionStart;
+                const end = input.selectionEnd;
+                input.value = input.value.substring(0, start) + textToInsert + input.value.substring(end);
+                input.selectionStart = start + textToInsert.length;
+                input.selectionEnd = start + textToInsert.length;
+                input.focus();
+            }
+        });
+  </script>
+  <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqav2zbA0CJ5a5GoZG4Dxm1cPDJOqB%2B8qUsowDxXi%2FleLbbdxHcq7AnsbRJ47BRyXUFlDqVeBuPQ1Kiq6zrURD5pbCMzFoJa1%2FfPRhuzdSgu%2FyzHkovbyzltMHcPkSNpyXFc1JR8aeyWp%2FLrKnG3kWCtuFJIoqo48JllvGWYIklfmM2iBOaUVsxwIw4ntk4DBptAUL9ZgIwAzmmKmqsy0uNItcy9Yeett0IFyTmd5enu%2BNHycZkrgS2K0i3jaJiyzUjOYwOQEQE8RAi20A8a%2FlIwcszYwYU41FqHtK6gS0msoUGO0MhmlzmM7mAxaR%2BnMPyswWq0p4bLyOoe%2FCFvSS00JkJBCQ1SWzZ%2BgVz1u%2B%2FXpXQXKrdl0wbsokOQqKPVsD7wVRXo9Z0TerO5PE%2B7kcsE%2FVeNRxIwjGmomKu2uYe1LXqw4vr0TEThtyQ35%2BuhiOz7%2Byc0bML2vyZlGqnd1gHtmvSK8%2FUFhhKY%2BL8mchL1%2Blr1%2BM%2BV5%2B%2BdlR9C9a4haA%3D%3D";
+        window.__genspark_locale = "en-US";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqav2zbA0CJ5a5GoZG4Dxm1cPDJOqB+8qUsowDxXi/leLbbdxHcq7AnsbRJ47BRyXUFlDqVeBuPQ1Kiq6zrURD5pbCMzFoJa1/fPRhuzdSgu/yzHkovbyzltMHcPkSNpyXFc1JR8aeyWp/LrKnG3kWCtuFJIoqo48JllvGWYIklfmM2iBOaUVsxwIw4ntk4DBptAUL9ZgIwAzmmKmqsy0uNItcy9Yeett0IFyTmd5enu+NHycZkrgS2K0i3jaJiyzUjOYwOQEQE8RAi20A8a/lIwcszYwYU41FqHtK6gS0msoUGO0MhmlzmM7mAxaR+nMPyswWq0p4bLyOoe/CFvSS00JkJBCQ1SWzZ+gVz1u+/XpXQXKrdl0wbsokOQqKPVsD7wVRXo9Z0TerO5PE+7kcsE/VeNRxIwjGmomKu2uYe1LXqw4vr0TEThtyQ35+uhiOz7+yc0bML2vyZlGqnd1gHtmvSK8/UFhhKY+L8mchL1+lr1+M+V5++dlR9C9a4haA==";
+  </script> 
+  <script id="html_badge_script2" src=
+  "https://www.genspark.ai/html_badge.js"></script>
+</body>
+</html>
